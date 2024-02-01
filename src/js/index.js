@@ -66,18 +66,35 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, config.maxPixelRatio));
 /**
  * Objects
  */
+let light = new THREE.DirectionalLight(0xffffff, 1);
+light.position.setScalar(1);
+scene.add(light, new THREE.AmbientLight(0xffffff, 0.25));
 
-const cubeMaterial = new THREE.MeshNormalMaterial();
-const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+const planeMaterial = new THREE.MeshLambertMaterial({
+	flatShading: true,
+	color: 0x8888ff,
+	// wireframe: true,
+});
+const planeGeometry = new THREE.PlaneGeometry(200, 200, 75, 75);
+planeGeometry.rotateX(-Math.PI / 2);
+const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+scene.add(plane);
 
-const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-scene.add(cube);
+// https://jsfiddle.net/prisoner849/79z8jyLk/
+let vertexData = [];
+let v3 = new THREE.Vector3(); // for re-use
+for (let i = 0; i < planeGeometry.attributes.position.count; i++) {
+	v3.fromBufferAttribute(planeGeometry.attributes.position, i);
+	vertexData.push({
+		initialY: v3.y,
+		amplitude: THREE.MathUtils.randFloatSpread(1),
+		phase: THREE.MathUtils.randFloat(0, Math.PI * 1),
+	});
+}
 
 /**
  * Animate
  */
-
-const speed = 0.1;
 
 const tick = (time) => {
 	try {
@@ -85,7 +102,13 @@ const tick = (time) => {
 		controls.update();
 
 		// Update objects
-		cube.rotation.y = time * speed;
+		vertexData.forEach((data, i) => {
+			let y = data.initialY + Math.sin(time + data.phase) * data.amplitude;
+			planeGeometry.attributes.position.setY(i, y);
+		});
+		planeGeometry.attributes.position.needsUpdate = true;
+		planeGeometry.computeVertexNormals();
+
 		// Render
 		renderer.render(scene, camera);
 	} catch (error) {

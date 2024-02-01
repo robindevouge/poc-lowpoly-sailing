@@ -6,10 +6,10 @@ export default config = {
 	},
 	defaultCamera: {
 		fov: 75,
-		x: 5,
-		y: 3,
-		z: 4,
+		x: 40,
+		y: 30,
+		z: 40,
 		near: 0.1,
-		far: 100,
+		far: 1000,
 	},
 };
