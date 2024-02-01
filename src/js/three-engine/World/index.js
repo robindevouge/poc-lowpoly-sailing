@@ -28,6 +28,8 @@ export default class World {
 				);
 				this.scene.add(testMesh);
 			}
+
+			this.engine.start();
 		});
 	}
 
