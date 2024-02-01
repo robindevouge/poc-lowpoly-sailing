@@ -3,6 +3,7 @@ import ThreeEngine from '../index';
 import { config } from '../config';
 import { Sea } from './Sea';
 import { Lights } from './Lights';
+import { Boat } from './Boat';
 
 export default class World {
 	constructor() {
@@ -16,6 +17,7 @@ export default class World {
 
 			// add world elements
 			this.sea = new Sea();
+			this.boat = new Boat();
 			this.lights = new Lights();
 
 			// debug mesh

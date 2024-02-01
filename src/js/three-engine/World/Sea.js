@@ -6,23 +6,23 @@ export class Sea {
 		this.engine = new ThreeEngine();
 		this.scene = this.engine.scene;
 
-		const planeMaterial = new THREE.MeshLambertMaterial({
+		this.material = new THREE.MeshLambertMaterial({
 			flatShading: true,
 			color: 0x8888ff,
 			// wireframe: true,
 		});
 
-		const planeGeometry = new THREE.PlaneGeometry(200, 200, 75, 75);
-		planeGeometry.rotateX(-Math.PI / 2);
+		this.geometry = new THREE.PlaneGeometry(200, 200, 75, 75);
+		this.geometry.rotateX(-Math.PI / 2);
 
-		this.mesh = new THREE.Mesh(planeGeometry, planeMaterial);
+		this.mesh = new THREE.Mesh(this.geometry, this.material);
 		this.scene.add(this.mesh);
 
 		// https://jsfiddle.net/prisoner849/79z8jyLk/
 		this.vertexData = [];
 		let v3 = new THREE.Vector3(); // for re-use
-		for (let i = 0; i < planeGeometry.attributes.position.count; i++) {
-			v3.fromBufferAttribute(planeGeometry.attributes.position, i);
+		for (let i = 0; i < this.geometry.attributes.position.count; i++) {
+			v3.fromBufferAttribute(this.geometry.attributes.position, i);
 			this.vertexData.push({
 				initialY: v3.y,
 				amplitude: THREE.MathUtils.randFloatSpread(1),
@@ -30,17 +30,15 @@ export class Sea {
 			});
 		}
 
-		this.planeGeometry = planeGeometry;
+		this.geometry = this.geometry;
 	}
 
 	update(time) {
-		const planeGeometry = this.planeGeometry;
-
 		this.vertexData.forEach((data, i) => {
 			let y = data.initialY + Math.sin(time + data.phase) * data.amplitude;
-			planeGeometry.attributes.position.setY(i, y);
+			this.geometry.attributes.position.setY(i, y);
 		});
-		planeGeometry.attributes.position.needsUpdate = true;
-		planeGeometry.computeVertexNormals();
+		this.geometry.attributes.position.needsUpdate = true;
+		this.geometry.computeVertexNormals();
 	}
 }
