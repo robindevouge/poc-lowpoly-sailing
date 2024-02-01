@@ -35,5 +35,6 @@ export default class World {
 
 	update(time) {
 		this.sea.update(time);
+		this.boat.update(time);
 	}
 }

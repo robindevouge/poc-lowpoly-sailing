@@ -25,4 +25,13 @@ export const config = {
 		orbit: true,
 		testMesh: false,
 	},
+	boat: {
+		baseHeave: 0,
+		heaveAmplitude: 0.1,
+		heaveFrequency: 1.8,
+		rollAmplitude: 0.1,
+		rollFrequency: 1.5,
+		pitchAmplitude: 0.1,
+		pitchFrequency: 1.2,
+	},
 };
