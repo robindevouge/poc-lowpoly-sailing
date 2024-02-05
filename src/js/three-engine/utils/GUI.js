@@ -15,7 +15,7 @@ export default class GUI {
 
 		this.engine.assetsManager.onReady(() => {
 			const cameraState = {
-				activeCam: 'boat',
+				activeCam: config.camera.defaultCam,
 			};
 			const camera = this.instance.addFolder('Camera');
 			camera
