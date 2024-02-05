@@ -6,18 +6,31 @@ export const config = {
 		transparent: false,
 	},
 	camera: {
-		fov: 45,
-		near: 0.1,
-		far: 1000,
-		defaultPosition: {
-			x: 40,
-			y: 30,
-			z: 40,
+		defaultCam: 'boat',
+		global: {
+			fov: 45,
+			near: 0.1,
+			far: 1000,
+			defaultPosition: {
+				x: 40,
+				y: 30,
+				z: 40,
+			},
+			defaultLookAt: {
+				x: 0,
+				y: 0,
+				z: 0,
+			},
 		},
-		defaultLookAt: {
-			x: 0,
-			y: 0,
-			z: 0,
+		boat: {
+			fov: 45,
+			near: 0.1,
+			far: 1000,
+			offset: {
+				x: 15,
+				y: 15,
+				z: 15,
+			},
 		},
 	},
 	debug: {
@@ -26,6 +39,11 @@ export const config = {
 		testMesh: false,
 	},
 	boat: {
+		defaultPosition: {
+			x: 0,
+			y: 0,
+			z: 0,
+		},
 		baseHeave: 0,
 		heaveAmplitude: 0.1,
 		heaveFrequency: 1.8,

@@ -4,6 +4,7 @@ import { config } from '../config';
 import gsap from 'gsap';
 
 const {
+	defaultPosition,
 	baseHeave,
 	heaveAmplitude,
 	heaveFrequency,
@@ -17,6 +18,8 @@ const {
 	maxTurningRoll,
 	maxMovementPitch,
 } = config.boat;
+
+const { offset: cameraOffset } = config.camera.boat;
 
 export class Boat {
 	constructor() {
@@ -45,6 +48,8 @@ export class Boat {
 		this.hull.material = hullMaterial;
 		this.sail.material = sailMaterial;
 		this.sail.scale.z = 0;
+
+		this.wrapper.position.set(defaultPosition.x, defaultPosition.y, defaultPosition.z);
 
 		this.scene.add(this.wrapper);
 
@@ -131,6 +136,10 @@ export class Boat {
 	move() {
 		this.wrapper.position.x += Math.sin(-this.angle) * this.speed;
 		this.wrapper.position.z -= Math.cos(this.angle) * this.speed;
+
+		this.engine.camera.cameras['boat'].position.x = this.wrapper.position.x + cameraOffset.x;
+		this.engine.camera.cameras['boat'].position.y = this.wrapper.position.y + cameraOffset.y;
+		this.engine.camera.cameras['boat'].position.z = this.wrapper.position.z + cameraOffset.z;
 	}
 
 	update(time) {
