@@ -4,3 +4,4 @@ dist
 .DS_store
 _design
 *.db
+.env
