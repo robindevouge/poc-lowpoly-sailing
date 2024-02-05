@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import ThreeEngine from '../index';
+import ControlsManager from '@robindevouge/controls-manager';
 import { config } from '../config';
 import { Sea } from './Sea';
 import { Lights } from './Lights';
@@ -30,6 +31,37 @@ export default class World {
 			}
 
 			this.engine.start();
+
+			// init controls
+			this.controlsManager = new ControlsManager({
+				enabled: true,
+				keyMaps: [
+					{
+						key: 'Space',
+						actionDown: () => {
+							this.boat.sailDeployed = !this.boat.sailDeployed;
+						},
+					},
+					{
+						key: 'ArrowLeft',
+						actionDown: () => {
+							this.boat.rotation = -1;
+						},
+						actionUp: () => {
+							this.boat.rotation = 0;
+						},
+					},
+					{
+						key: 'ArrowRight',
+						actionDown: () => {
+							this.boat.rotation = 1;
+						},
+						actionUp: () => {
+							this.boat.rotation = 0;
+						},
+					},
+				],
+			});
 		});
 	}
 

@@ -6,6 +6,7 @@
 		"start": "parcel src/index.html"
 	},
 	"dependencies": {
+		"@robindevouge/controls-manager": "^1.0.0",
 		"gsap": "^3.11.4",
 		"three": "^0.148.0"
 	},

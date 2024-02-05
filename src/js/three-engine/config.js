@@ -33,5 +33,10 @@ export const config = {
 		rollFrequency: 1.5,
 		pitchAmplitude: 0.1,
 		pitchFrequency: 1.2,
+		maxSpeed: 0.2,
+		accelerationTime: 1,
+		rotationSpeed: 0.03,
+		maxTurningRoll: 0.2,
+		maxMovementPitch: 0.1,
 	},
 };
